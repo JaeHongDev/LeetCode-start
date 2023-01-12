@@ -4,9 +4,8 @@
  */
 var arrangeCoins = function(n) {
     
-    const calculateSumToArithmeticProgression = (n) => (n**2 + n) / 2 ;
     for(let i = 1 ; i <= n ; i ++){ 
-        const result = calculateSumToArithmeticProgression(i)
+        const result = (i ** 2 + i ) / 2;
         if(result === n) return i;
         if(result > n) return i-1;
     }
