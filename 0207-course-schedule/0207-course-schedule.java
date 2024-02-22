@@ -1,54 +1,40 @@
 class Solution {
-
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        Map<Integer, List<Integer>> finishToTakeMap = new HashMap<>();
 
-        for(int[] pre: prerequisites){
-            finishToTakeMap.putIfAbsent(pre[0], new ArrayList<>());
-            finishToTakeMap.get(pre[0]).add(pre[1]);
+        HashMap<Integer, List<Integer>> map = new HashMap<>();
+
+        for(var pre: prerequisites){
+            map.putIfAbsent(pre[0], new ArrayList<>());
+            map.get(pre[0]).add(pre[1]);
         }
 
         var takes = new HashSet<Integer>();
         var taken = new HashSet<Integer>();
 
-        for(var finish: finishToTakeMap.keySet()){
-            if(!dfs(finishToTakeMap, finish, takes, taken)){
-                return false;
-            }
+        for(var key: map.keySet()){
+            if(!dfs(map, key, takes, taken)) return false;
         }
         return true;
     }
 
     boolean dfs(
-        Map<Integer, List<Integer>> finishToTakeMap,
-        Integer finish, 
-        Set<Integer> takes, 
+        Map<Integer, List<Integer>> map,
+        Integer key,  
+        Set<Integer> takes,
         Set<Integer> taken
     ){
-        if(takes.contains(finish)) return false;
-        if(taken.contains(finish)) return true;
+        if(takes.contains(key)) return false;
+        if(taken.contains(key)) return true;
 
-        if(finishToTakeMap.containsKey(finish)){
-            takes.add(finish);
+        if(!map.containsKey(key)) return true;
+        
+        for(var node: map.keySet()){
+            takes.add(node);
+            if(!dfs(map, node, takes, taken)) return false;
 
-            for(var take: finishToTakeMap.get(finish)){ 
-                if(!dfs(finishToTakeMap, take, takes, taken)) return false;
-            }
-
-            takes.remove(finish);
-            taken.add(finish);
+            takes.remove(node);
+            taken.add(node);
         }
-
         return true;
     }
-    
 }
-
-/*
-
-순환구조가 발생하면 문제라는 건데 
-
-방향이 있는 그래프 
-
-A -> B
-*/
