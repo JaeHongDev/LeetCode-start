@@ -8,8 +8,8 @@ class Solution {
             finishToTakeMap.get(pre[0]).add(pre[1]);
         }
 
-        var takes = new ArrayList<Integer>();
-        var taken = new ArrayList<Integer>();
+        var takes = new HashSet<Integer>();
+        var taken = new HashSet<Integer>();
 
         for(var finish: finishToTakeMap.keySet()){
             if(!dfs(finishToTakeMap, finish, takes, taken)){
@@ -22,8 +22,8 @@ class Solution {
     boolean dfs(
         Map<Integer, List<Integer>> finishToTakeMap,
         Integer finish, 
-        List<Integer> takes, 
-        List<Integer> taken
+        Set<Integer> takes, 
+        Set<Integer> taken
     ){
         if(takes.contains(finish)) return false;
         if(taken.contains(finish)) return true;
