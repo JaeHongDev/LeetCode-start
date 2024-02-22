@@ -15,7 +15,7 @@ class Solution {
         pq.add(new AbstractMap.SimpleEntry<>(k, 0));
 
         Map<Integer, Integer> dist = new HashMap<>();
-
+        var max = 0;
         while(!pq.isEmpty()){
             var cur = pq.poll();
             var u = cur.getKey();
