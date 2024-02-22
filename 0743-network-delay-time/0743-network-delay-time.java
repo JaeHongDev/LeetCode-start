@@ -24,6 +24,7 @@ class Solution {
             if(dist.containsKey(u)) continue;
 
             dist.put(u, distU);
+            max = Math.max(distU, max);
             if(!graph.containsKey(u)) continue;
             for(var v: graph.get(u).entrySet()){
                 var alt = distU + v.getValue();
@@ -31,7 +32,7 @@ class Solution {
             }
         }
 
-        if(dist.size() == n) return Collections.max(dist.values());
+        if(dist.size() == n) return max;
         return -1;
     }
 }
