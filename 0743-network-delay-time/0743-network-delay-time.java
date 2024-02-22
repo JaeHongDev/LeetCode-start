@@ -10,19 +10,21 @@ class Solution {
         }
         
 
-        HashMap<Integer, Integer> map = new HashMap<>();
+        HashMap<Integer, Integer> dist = new HashMap<>();
         var pq = new PriorityQueue<Map.Entry<Integer, Integer>>((e1,e2) -> e1.getValue() - e2.getValue());
     
         pq.offer(new AbstractMap.SimpleEntry<>(k, 0));
 
         while(!pq.isEmpty()){
+            System.out.println(dist);
+            
             var cur = pq.poll();
             var u = cur.getKey();
             var distU = cur.getValue();
 
             if(dist.containsKey(u)) continue;
             
-            dist.put(u, dist);
+            dist.put(u, distU);
             if(!graph.containsKey(u)) continue;
 
             for(var child: graph.get(u).entrySet()){
