@@ -6,7 +6,7 @@ class Solution {
         var right = nums.length - 1;
 
         while(left <= right){
-            var mid = (left + right) / 2;
+            var mid = left + (right - left) / 2;
 
             if(nums[mid] == target) return mid;
             else if(nums[mid] < target) left = mid + 1;
