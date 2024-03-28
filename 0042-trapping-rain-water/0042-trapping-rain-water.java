@@ -1,24 +1,19 @@
 class Solution {
     public int trap(int[] height) {
-        Deque<Integer> stack = new ArrayDeque<>();
+        var answer = 0;
+        var left = 0; 
+        var right = height.length - 1; 
 
-        var volumn = 0;
-
-        for(int i = 0; i < height.length; i++){
-            while(!stack.isEmpty() && height[i] > height[stack.peek()]){
-                var top = stack.pop();
-
-                if(stack.isEmpty()) break;
-
-                var distance = i - stack.peek() - 1;
-
-                var water = Math.min(height[i], height[stack.peek()]) - height[top];
-
-                volumn += distance * water;
-            }
-            stack.push(i);
-        }
-        return volumn;
         
+        var leftMax = height[left] ; 
+        var rightMax = height[right];
+        while(left < right){
+            leftMax = Math.max(height[left], leftMax); 
+            rightMax = Math.max(height[right], rightMax); 
+
+            if(leftMax <= rightMax) answer += leftMax - height[left++];
+            else answer += rightMax - height[right--];
+        }
+        return answer;
     }
 }
