@@ -1,32 +1,32 @@
 class Solution {
-    public int[][] merge(int[][] intervals) { 
+    public int[][] merge(int[][] intervals) {
+        List<int[]> answer = new ArrayList<>(); 
 
-        List<int[]> result = new ArrayList<>();
+        var pq = new PriorityQueue<int[]>((e1,e2) -> {
+            var compared = e1[0] - e2[0]; 
 
-        var pq = new PriorityQueue<int[]>((n1, n2) -> n1[0] - n2[0]);
+            if(compared == 0) return e1[1] - e2[1]; 
+            return compared; 
+        });
 
-        for(var interval: intervals) pq.offer(interval);
+        for(var arr: intervals) pq.offer(arr);
 
         while(!pq.isEmpty()){
-
-            if(result.isEmpty()) {
-                result.add(pq.poll());
+            if(answer.isEmpty()) {
+                answer.add(pq.poll()); 
                 continue;
             }
 
-            var cur = pq.poll();
 
-            var lastE = result.get(result.size() - 1);
+            var cur = pq.poll(); 
 
-            if(lastE[1] >= cur[0]){
-                if(lastE[1] < cur[1]) lastE[1] = cur[1];
-            } 
-            else result.add(cur);
-        }
+            var last = answer.get(answer.size() - 1);
 
-        return result.stream().toArray(int[][]::new);
-        
-
+            // 마지막으로 저장된 노드와 추가할 노드를비교할 때 
+            if(last[1] >= cur[0]) last[1] = Math.max(last[1], cur[1]);
+            else answer.add(cur);
+       }
+       return answer.stream().toArray(int[][]::new);
         
     }
 }
