@@ -1,24 +1,24 @@
 class Solution {
     public boolean isPalindrome(String s) {
-        var left = 0; 
-        var right = s.length() - 1;
+        var len = s.length();
+        // 공백을 제외하고 대소문자가 같아야 함
 
-        while(left < right) {
+        var ll = 0;
+        var rl = s.length() -1;
 
-            var l = Character.toLowerCase(s.charAt(left));
-            var r = Character.toLowerCase(s.charAt(right));
+        while(ll <= rl) {
+            var l = s.charAt(ll);
+            var r = s.charAt(rl);
 
-            if(!(Character.isAlphabetic(l) || Character.isDigit(l))) left++;
-            else if(!(Character.isAlphabetic(r) || Character.isDigit(r))) right--;
-            else if(l != r) return false;
-            else {
-                left++;
-                right--; 
+            if(!Character.isLetterOrDigit(l)) ll++;
+            else if(!Character.isLetterOrDigit(r)) rl--;
+            else if(Character.toLowerCase(l) == Character.toLowerCase(r))  {
+                ll++;
+                rl--;
             }
+            else return false;
         }
 
-            
-        return true; 
-    }
-
+        return true;
+   }
 }
