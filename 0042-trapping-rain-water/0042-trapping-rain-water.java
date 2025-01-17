@@ -1,19 +1,21 @@
 class Solution {
     public int trap(int[] height) {
-        var answer = 0;
-        var left = 0; 
-        var right = height.length - 1; 
+        var ll = 0;
+        var rl = height.length - 1; 
 
-        
-        var leftMax = height[left] ; 
-        var rightMax = height[right];
-        while(left < right){
-            leftMax = Math.max(height[left], leftMax); 
-            rightMax = Math.max(height[right], rightMax); 
+        var volume = 0;
 
-            if(leftMax <= rightMax) answer += leftMax - height[left++];
-            else answer += rightMax - height[right--];
-        }
-        return answer;
+        var lm = height[ll];
+        var rm = height[rl];
+
+        while(ll < rl) {
+            lm = Math.max(height[ll], lm);
+            rm = Math.max(height[rl], rm);
+
+            if(height[ll] <= height[rl]) volume += lm - height[ll++];
+            else volume += rm - height[rl--];
+        } 
+
+        return volume;
     }
 }
