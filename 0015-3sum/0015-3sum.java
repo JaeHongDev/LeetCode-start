@@ -2,26 +2,32 @@ class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
 
         List<List<Integer>> answer = new ArrayList<>();
-        
         Arrays.sort(nums);
+        System.out.println(Arrays.toString(nums));
 
-        for(int i = 0; i < nums.length - 2; i++){
-            if(i > 0 && nums[i] == nums[i-1]) continue;
-            var ll =  i + 1; 
-            var rl = nums.length - 1;
-            while(ll < rl){
-                var sum = nums[i] + nums[ll] + nums[rl];
-                if(sum < 0) ll += 1 ;
-                else if(sum > 0) rl -= 1; 
-                if(sum == 0){
-                    answer.add(List.of(nums[i], nums[ll], nums[rl]));
-                    while(ll < rl && nums[ll] == nums[ll + 1]) ll++;
-                    while(ll < rl && nums[rl] == nums[rl - 1]) rl--;
-                    ll++;
-                    rl--;
+        var size = nums.length;
+
+        for(int i = 0; i < size - 2;i++){
+            if(i > 0 && nums[i] == nums[i - 1]) continue;
+
+            var start = i + 1;
+            var end = size - 1;
+
+
+            while(start < end) {
+                var compare = nums[i] + nums[start] + nums[end];
+                if(compare == 0) {
+                    answer.add(List.of(nums[i], nums[start], nums[end]));
+
+                    while(start < end && nums[start] == nums[start + 1]) start++;
+                    while(start < end && nums[end] == nums[end - 1]) end--;
+                    start++;
+                    end--;
                 }
+                else if(compare < 0) start++;
+                else end--;
             }
         }
-        return answer;
+        return answer; 
     }
 }
